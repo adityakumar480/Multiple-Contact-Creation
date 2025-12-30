@@ -1,0 +1,97 @@
+<template>
+	<div class="slds-spinner_container" if:true={isDisplaySpinner}>
+	  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+		<span class="slds-assistive-text">Loading</span>
+		<div class="slds-spinner__dot-a"></div>
+		<div class="slds-spinner__dot-b"></div>
+	  </div>
+	</div>
+  
+	<!-- Header -->
+	<div class="slds-modal__header slds-text-heading_medium">Add Multiple Contact(s)</div>
+  
+	<!-- Body -->
+	<div>
+	  <table>
+		<thead>
+		  <tr>
+			<td class="slds-p-around_small">First Name</td>
+			<td class="slds-p-around_small"><span class="slds-text-color_destructive">*</span> Last Name</td>
+			<td class="slds-p-around_small">Email</td>
+			<td class="slds-p-around_small">Lead Source</td>
+			<td class="slds-p-around_small">
+			  <lightning-button-icon
+				icon-name="utility:add"
+				title="Add new Contact"
+				size="medium"
+				alternative-text="Add Contact"
+				onclick={handleAddClick}
+			  ></lightning-button-icon>
+			</td>
+		  </tr>
+		</thead>
+		<tbody>
+		  <template for:each={contacts} for:item="contact">
+			<tr key={contact.tempId}>
+			  <td class="slds-p-around_small">
+				<lightning-input
+				  data-temp-id={contact.tempId}
+				  variant="label-hidden"
+				  name="FirstName"
+				  placeholder="First Name"
+				  onblur={handleElementChange}
+				></lightning-input>
+			  </td>
+			  <td class="slds-p-around_small">
+				<lightning-input
+				  data-temp-id={contact.tempId}
+				  class="first-class"
+				  variant="label-hidden"
+				  name="LastName"
+				  placeholder="Last Name"
+				  onblur={handleElementChange}
+				  required
+				></lightning-input>
+			  </td>
+			  <td class="slds-p-around_small">
+				<lightning-input
+				  data-temp-id={contact.tempId}
+				  variant="label-hidden"
+				  type="email"
+				  name="Email"
+				  placeholder="Email"
+				  onblur={handleElementChange}
+				></lightning-input>
+			  </td>
+			  <td class="slds-p-around_small">
+				<lightning-combobox
+				  data-temp-id={contact.tempId}
+				  variant="label-hidden"
+				  name="LeadSource"
+				  placeholder="Select Lead Source"
+				  options={leadSourcePicklist}
+				  onblur={handleElementChange}
+				></lightning-combobox>
+			  </td>
+			  <td class="slds-p-around_small">
+				<lightning-button-icon
+				  data-temp-id={contact.tempId}
+				  icon-name="utility:delete"
+				  title="Delete new Contact"
+				  size="medium"
+				  alternative-text="Delete Contact"
+				  onclick={handleDeleteClick}
+				></lightning-button-icon>
+			  </td>
+			</tr>
+		  </template>
+		</tbody>
+	  </table>
+	</div>
+  
+	<!-- Footer -->
+	<div class="slds-modal__footer slds-text-align_right">
+	  <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmitClick}></lightning-button>
+	</div>
+  </template>
+  
